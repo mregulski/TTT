@@ -13,6 +13,7 @@ import java.util.Random;
 
 class BotPlayer implements Player {
     private final static String TAG = "BotPlayer";
+    private final static int DEPTH_LIMIT = 2;
     private Symbol symbol;
     private OnMoveListener listener;
     final private BoardState board;
@@ -113,7 +114,7 @@ class BotPlayer implements Player {
      */
     private int minimax(Field[][] board, int depth, boolean isMaximizer) {
         Log.d(TAG, "minimax: depth " + depth);
-        if (depth >= 2) {
+        if (depth >= DEPTH_LIMIT) {
             return 0;
         }
         int score = evaluate(board);

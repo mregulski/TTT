@@ -85,6 +85,7 @@ public class BoardState {
         }
         playerOne.setOnMoveListener(getOnMoveListener(playerTwo));
         playerTwo.setOnMoveListener(getOnMoveListener(playerOne));
+        gameStarted = true;
         if (!activePlayer.isHuman()) {
             activePlayer.move();
         }
@@ -110,6 +111,7 @@ public class BoardState {
     }
 
     public void end(boolean hasWinner) {
+        gameStarted = false;
         if (hasWinner) {
             Log.d(TAG, "Game finished, winner:" + getActiveSymbol());
             endListener.onEnd(getActiveSymbol());
@@ -181,7 +183,7 @@ public class BoardState {
     }
 
     public boolean isBoardClickable() {
-        return activePlayer != null && activePlayer.isHuman();
+        return gameStarted && activePlayer != null && activePlayer.isHuman();
     }
 
     public void setOnEndListener(OnEndListener endListener) {
